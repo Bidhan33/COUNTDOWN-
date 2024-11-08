@@ -1,148 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Countdown Timer</title>
-  <style>
-    /* CSS styling */
-    * {
-      padding: 0;
-      margin: 0;
-      box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
-      color: white;
-    }
-
-    /* Design the webpage background */
-    body {
-      background: rgb(20, 129, 208);
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-position: center center;
-      background-size: cover;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    /* Wrapper for centering */
-    .wrapper {
-      font-size: 16px;
-    }
-
-    /* Countdown timer container */
-    .countdown {
-      display: flex;
-      gap: 10px;
-      justify-content: space-around;
-    }
-
-    /* Style for individual time boxes */
-    .box {
-      width: 80px;
-      height: 120px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-evenly;
-      position: relative;
-    }
-
-    /* Style for the numbers */
-    .num {
-      background-color: white;
-      color: rgb(8, 78, 142);
-      height: 100%;
-      width: 100%;
-      display: grid;
-      place-items: center;
-      font-size: 2.5em;
-      box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
-      border-radius: 0.1em;
-    }
-
-    /* Style for the labels (Days, Hours, etc.) */
-    .text {
-      font-size: 1em;
-      background-color: rgb(211, 241, 22);
-      color: #202020;
-      display: block;
-      width: 80%;
-      text-align: center;
-      padding: 0.6em 0;
-      font-weight: 600;
-      border-radius: 0.3em;
-      box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Countdown Timer</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Countdown timer structure -->
-  <div class="wrapper">
-    <div class="countdown">
-      <div class="box">
-        <span class="text">Days</span>
-        <span class="num" id="day-box">00</span>
-      </div>
-      <div class="box">
-        <span class="text">Hours</span>
-        <span class="num" id="hr-box">00</span>
-      </div>
-      <div class="box">
-        <span class="text">Minutes</span>
-        <span class="num" id="min-box">00</span>
-      </div>
-      <div class="box">
-        <span class="text">Seconds</span>
-        <span class="num" id="sec-box">00</span>
-      </div>
+
+    <div class="container">
+        <h1>Countdown Timer</h1>
+        
+        <!-- Input for target date and time -->
+        <label for="countdown-date">Set countdown date and time:</label>
+        <input type="datetime-local" id="countdown-date">
+        <button onclick="startCountdown()">Start Countdown</button>
+
+        <!-- Display the countdown -->
+        <div id="countdown-display">00d 00h 00m 00s</div>
     </div>
-  </div>
 
-  <!-- JavaScript for countdown functionality -->
-  <script>
-    let dayBox = document.getElementById("day-box");
-    let hrBox = document.getElementById("hr-box");
-    let minBox = document.getElementById("min-box");
-    let secBox = document.getElementById("sec-box");
-
-    // Set the end date for countdown (update to a future date)
-    let endDate = new Date(2024, 11, 31, 23, 59, 59);
-    let endTime = endDate.getTime();
-
-    // Function to run the countdown
-    function countdown() {
-      let todayTime = new Date().getTime();
-      let remainingTime = endTime - todayTime;
-
-      // Calculate days, hours, minutes, seconds
-      let oneMin = 60 * 1000;
-      let oneHr = 60 * oneMin;
-      let oneDay = 24 * oneHr;
-
-      if (remainingTime <= 0) {
-        clearInterval(timerInterval);
-        document.querySelector(".countdown").innerHTML = `<h1>Countdown Has Expired</h1>`;
-        return;
-      }
-
-      let daysLeft = Math.floor(remainingTime / oneDay);
-      let hrsLeft = Math.floor((remainingTime % oneDay) / oneHr);
-      let minsLeft = Math.floor((remainingTime % oneHr) / oneMin);
-      let secsLeft = Math.floor((remainingTime % oneMin) / 1000);
-
-      // Add zeroes to single digits and display
-      dayBox.textContent = daysLeft < 10 ? "0" + daysLeft : daysLeft;
-      hrBox.textContent = hrsLeft < 10 ? "0" + hrsLeft : hrsLeft;
-      minBox.textContent = minsLeft < 10 ? "0" + minsLeft : minsLeft;
-      secBox.textContent = secsLeft < 10 ? "0" + secsLeft : secsLeft;
-    }
-
-    // Update countdown every second
-    let timerInterval = setInterval(countdown, 1000);
-    countdown();
-  </script>
+    <script src="script.js"></script>
 </body>
 </html>
